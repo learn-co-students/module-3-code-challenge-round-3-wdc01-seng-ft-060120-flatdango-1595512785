@@ -10,7 +10,7 @@ You will be building out an application that allows a user to purchase movie tic
 
 * As a user, clicking on the 'Buy Ticket' button should purchase a ticket and decrement the remaining tickets by one. This information should be persisted in the remote API.
 
-* As a user I should not be able to purchase a ticket for a sold out showing. The 'Buy Ticket' button should be disabled on sold out showings, and the text should change to "sold out". 
+* As a user I should not be able to purchase a ticket for a sold out showing. The 'Buy Ticket' button should be disabled on sold out showings, and the text should change to "sold out".
 
 ## Implementation Notes
 
@@ -189,7 +189,7 @@ Example Responses:
 
 #### Important Note
 
-**Once this response is received you need to decrease the number of remaining tickets displayed on the DOM.** 
+**Once this response is received you need to decrease the number of remaining tickets displayed on the DOM.**
 
 ### Styling
 
@@ -207,11 +207,11 @@ The cards that represent a movie showing should be appended to the div with the 
       (Runtime) minutes
     </div>
     <div class="description">
-      <span class="ui label">
-        (Showtime)
-      </span>
       (Num Tickets) remaining tickets
     </div>
+    <span class="ui label">
+      (Showtime)
+    </span>
   </div>
   <div class="extra content">
     <div class="ui blue button">Buy Ticket</div>
