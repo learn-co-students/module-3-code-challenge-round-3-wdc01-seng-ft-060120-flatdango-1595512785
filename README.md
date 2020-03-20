@@ -45,6 +45,39 @@ As a user, I can:
 
 ![Example](assets/flatdangoDemo.gif)
 
+## Styling
+
+[Semantic Ui](https://semantic-ui.com/elements/list.html) is loaded into this project via a `link` tag in the `head` of the html. Some extra styling is also included in `assets/index.css`.
+
+The poster image should be added to the div with an id of `poster`, and the showing details should be added to the div with an id of `showing`.  Here is sample html for the showing details card:
+
+```html
+<div class="card">
+  <div class="title">(Film Title)</div>
+  <div class="meta" id="meta">(Film Runtime) minutes</div>
+  <div class="content">
+      <div class="description">
+          <div class="film-info">(Film Description)</div>
+          <span class="ui label">(Film Showtime)</span>
+          (# of tickets) remaining tickets
+      </div>
+  </div>
+  <div class="extra content">
+    <div class="ui orange button">Buy Ticket</div>
+  </div>
+</div>
+```
+
+Styling for advanced deliverables:
+
+The listed films should be added to the div with an id of `films`.  Here is sample styling for the film list items:
+
+```html
+  <div class="film item">(Title of film)</div>
+  <div class="sold-out film item">(Title of a sold-out film)</div>
+  <div class="film item">(Title of film)</div>
+```
+
 ## Rubric
 
 ### DOM Manipulation

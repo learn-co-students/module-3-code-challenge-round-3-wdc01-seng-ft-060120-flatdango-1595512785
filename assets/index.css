@@ -37,6 +37,10 @@ body {
     font-size: 20px;
 }
 
+.sold-out {
+    color: lightgray;
+}
+
 img {
     max-width: 25vw;
 }
