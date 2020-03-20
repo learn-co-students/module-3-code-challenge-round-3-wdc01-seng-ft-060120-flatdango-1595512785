@@ -3,26 +3,39 @@
     <meta charset="UTF-8">
     <title>Code Challenge</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/1.11.8/semantic.min.css"/>
+    <link rel="stylesheet" href="assets/index.css"/>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   </head>
   <body>
     <!--  navbar-->
-    <div class="ui inverted red menu">
+    <div class="heading">
       <div class='item'>
         <h2 class="ui header">
-          <i class="ticket icon"></i>
+          <i class="orange ticket icon"></i>
           <div class="content">
-            tick.it
+            FLATDANGO
           </div>
-          <div class="sub header">
-            Buy Movie Tickets
+          <div class="sub header" id="subtitle">
+            BUY MOVIE TICKETS
           </div>
         </h2>
       </div>
     </div>
 
-    <!--  showings -->
-    <div class="ui cards showings">
+    <div class="ui centered grid">
+      <div class="four wide column">
+        <div class="list-container">
+          <div class="ui divided list" id="films">
+            Don't worry about this div until you've completed the base deliverables.
+          </div>
+        </div>
+      </div>
+      <div class="four wide column" id="poster">
+      </div>
+      <div class="four wide column">
+
+        <div class="ui cards" id="showing"></div>
+      </div>
     </div>
     <script src="src/index.js"></script>
   </body>
