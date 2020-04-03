@@ -14,7 +14,7 @@ body {
     color: white;
 }
 
-#meta {
+#runtime {
     background-color: #333333;
     color: #3E8FDE;
     padding: 0px 0px 5px 5px;
@@ -45,6 +45,6 @@ img {
     max-width: 25vw;
 }
 
-.film-info {
+#film-info {
     padding-bottom: 15px;
 }

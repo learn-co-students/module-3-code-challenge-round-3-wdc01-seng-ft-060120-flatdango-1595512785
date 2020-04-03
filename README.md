@@ -47,26 +47,7 @@ As a user, I can:
 
 ## Styling
 
-[Semantic Ui](https://semantic-ui.com/elements/list.html) is loaded into this project via a `link` tag in the `head` of the html. Some extra styling is also included in `assets/index.css`.
-
-The poster image should be added to the div with an id of `poster`, and the showing details should be added to the div with an id of `showing`.  Here is sample html for the showing details card:
-
-```html
-<div class="card">
-  <div class="title">(Film Title)</div>
-  <div class="meta" id="meta">(Film Runtime) minutes</div>
-  <div class="content">
-      <div class="description">
-          <div class="film-info">(Film Description)</div>
-          <span class="ui label">(Film Showtime)</span>
-          (# of tickets) remaining tickets
-      </div>
-  </div>
-  <div class="extra content">
-    <div class="ui orange button">Buy Ticket</div>
-  </div>
-</div>
-```
+[Semantic Ui](https://semantic-ui.com/elements/list.html) is loaded into this project via a `link` tag in the `head` of the html. Some extra styling is also included in `assets/index.css`. Styling is built in for the base deliverables.
 
 Styling for advanced deliverables:
 
