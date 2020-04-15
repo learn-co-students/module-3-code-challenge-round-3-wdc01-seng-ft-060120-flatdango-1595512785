@@ -1,224 +1,98 @@
-# Module 3 Code Challenge
+# Flatdango
 
-![Example](assets/code-challenge-3.gif)
+Flatiron Movie Theater is open for business! You will be building out an application, Flatdango, that allows a user to purchase movie tickets from the theater.
 
-## Deliverables
+## Demo
 
-You will be building out an application that allows a user to purchase movie tickets.
+![Example](assets/flatdangoDemo2.gif)
 
-* As a user, when the page loads I should see a list of movie showings fetched from a remote API.
+## Setup
 
-* As a user, clicking on the 'Buy Ticket' button should purchase a ticket and decrement the remaining tickets by one. This information should be persisted in the remote API.
+- Fork and clone this repository.
+- Open `index.html` in your browser.
+- Run `json-server --watch db.json` to start the backend.
 
-* As a user I should not be able to purchase a ticket for a sold out showing. The 'Buy Ticket' button should be disabled on sold out showings, and the text should change to "sold out".
+## Endpoints
 
-## Implementation Notes
+Your base URL for your API will be: http://localhost:3000
 
-### The API
+The endpoints you will need are:
 
-The backend for this challenge can be found at `https://evening-plateau-54365.herokuapp.com/`
+- GET `/films/[:id]` (start with `/films/1`)
+- PATCH `/films/[:id]`
+- GET `/films` (for Advanced Deliverables only)
 
-There are two endpoints you will use, one to fetch all of the data associated with your assigned theatre and the other to create tickets in the database.
+## Core Deliverables
 
-When you visit `https://evening-plateau-54365.herokuapp.com/` in your browser, you'll be assigned a **unique id**
+As a user, I can:
 
-**Before you do anything else, change the variable `theatreId` in your index.js file to your assigned id.**
+- See the first movie's details, including its **poster, title, runtime, showtime, and available tickets** (the number of tickets left will need to be derived from the theater's capacity and the number of tickets sold)
+- Buy a ticket for a movie. The number of tickets sold for that movie should be persisted, and I should be able to see the number of available tickets decreasing on the frontend.
+- I should not be able to buy a ticket if the showing is sold out.
 
-#### GET `/theatres/:id`
+## Advanced Deliverables:
 
-Use your assigned id to get the data for all of the showings at your assigned theatre.
+These deliverables are not required to pass the code challenge, but if you have extra time, you should attempt them!  They are a great way to stretch your skills.
 
-GET `https://evening-plateau-54365.herokuapp.com/theatres/:id`
+> If you're going to attempt the advanced deliverables, **make sure you have a working commit with all the core deliverables first!**
 
-Example response:
-```json
-{
-  "id": 3,
-  "name": "Flatiron Theatres #3",
-  "showings": [
-    {
-      "id": 30,
-      "film": {
-        "title": "The Torment of Others 2",
-        "runtime": 96
-      },
-      "capacity": 20,
-      "showtime": "01:59AM",
-      "tickets_sold": 1
-    },
-    {
-      "id": 29,
-      "film": {
-        "title": "The Torment of Others 2",
-        "runtime": 96
-      },
-      "capacity": 20,
-      "showtime": "08:41PM",
-      "tickets_sold": 6
-    },
-    {
-      "id": 28,
-      "film": {
-        "title": "The Torment of Others 2",
-        "runtime": 96
-      },
-      "capacity": 20,
-      "showtime": "06:50AM",
-      "tickets_sold": 1
-    },
-    {
-      "id": 27,
-      "film": {
-        "title": "All Passion Spent 4",
-        "runtime": 88
-      },
-      "capacity": 20,
-      "showtime": "10:11AM",
-      "tickets_sold": 10
-    },
-    {
-      "id": 26,
-      "film": {
-        "title": "All Passion Spent 4",
-        "runtime": 88
-      },
-      "capacity": 20,
-      "showtime": "11:02PM",
-      "tickets_sold": 7
-    },
-    {
-      "id": 25,
-      "film": {
-        "title": "All Passion Spent 4",
-        "runtime": 88
-      },
-      "capacity": 20,
-      "showtime": "06:58PM",
-      "tickets_sold": 1
-    },
-    {
-      "id": 24,
-      "film": {
-        "title": "Consider Phlebas",
-        "runtime": 118
-      },
-      "capacity": 20,
-      "showtime": "11:36PM",
-      "tickets_sold": 2
-    },
-    {
-      "id": 23,
-      "film": {
-        "title": "Consider Phlebas",
-        "runtime": 118
-      },
-      "capacity": 20,
-      "showtime": "09:47AM",
-      "tickets_sold": 14
-    },
-    {
-      "id": 22,
-      "film": {
-        "title": "Consider Phlebas",
-        "runtime": 118
-      },
-      "capacity": 20,
-      "showtime": "06:13AM",
-      "tickets_sold": 2
-    },
-    {
-      "id": 21,
-      "film": {
-        "title": "Those Barren Leaves, Thrones, Dominations 3",
-        "runtime": 107
-      },
-      "capacity": 20,
-      "showtime": "03:55AM",
-      "tickets_sold": 4
-    },
-    {
-      "id": 20,
-      "film": {
-        "title": "The Last Temptation 2",
-        "runtime": 85
-      },
-      "capacity": 20,
-      "showtime": "08:48PM",
-      "tickets_sold": 3
-    }
-  ]
-}
-```
+As a user, I can:
 
-A theatre has many showings.
+- See a menu of all movies on the left side of the page.
+- Click on a movie in the menu to replace the currently displayed movie's details with the new movie's details.
+- Buy a ticket for any movie and update the tickets sold for that movie, not just the first.
+- Indicate in the menu which movies are sold out.
 
-The number of tickets remaining for a showing can be determined by subtracting the current `tickets_sold` from the total `capacity` of the showing.
+![Example](assets/flatdangoDemo.gif)
 
+## Styling
 
-#### POST `/tickets`
+[Semantic Ui](https://semantic-ui.com/elements/list.html) is loaded into this project via a `link` tag in the `head` of the html. Some extra styling is also included in `assets/index.css`. Styling is built in for the base deliverables.
 
-To create a new ticket it must belong to a showing. The body of the request must contain a key called  `showing_id`
+Styling for advanced deliverables:
 
-POST `https://evening-plateau-54365.herokuapp.com/tickets`
-
-```
-Required Headers
-{
-  'Content-Type': 'application/json',
-  'Accept': 'application/json'
-}
-
-Required Keys
-
-{
-  showing_id: <add showing_id here>
-}
-
-```
-
-Example Responses:
-* Successfully created ticket
-```json
-{ "id": 3820, "showing_id": 182, "created_at": "2017-11-13T12:12:28.682Z" }
-```
-* Sold out
-```js
-{ "error": "That showing is sold out" }
-// status 422
-```
-
-#### Important Note
-
-**Once this response is received you need to decrease the number of remaining tickets displayed on the DOM.**
-
-### Styling
-
-[Semantic Ui](https://semantic-ui.com/elements/list.html) is loaded into this project via a `link` tag in the `head` of the html.
-
-The cards that represent a movie showing should be appended to the div with the class of  `showings`.  Each card should have the following html
+The listed films should be added to the div with an id of `films`.  Here is sample styling for the film list items:
 
 ```html
-<div class="card">
-  <div class="content">
-    <div class="header">
-      (Film Title)
-    </div>
-    <div class="meta">
-      (Runtime) minutes
-    </div>
-    <div class="description">
-      (Num Tickets) remaining tickets
-    </div>
-    <span class="ui label">
-      (Showtime)
-    </span>
-  </div>
-  <div class="extra content">
-    <div class="ui blue button">Buy Ticket</div>
-  </div>
-</div>
+  <div class="film item">(Title of film)</div>
+  <div class="sold-out film item">(Title of a sold-out film)</div>
+  <div class="film item">(Title of film)</div>
 ```
 
-### Considerations
+## Rubric
 
-You are free to solve this in any way you choose. It is not required that you have ES6 classes or use Object Orientation. We would recommend beginning with a straightforward functional implementation and refactoring to objects as needed.
+### DOM Manipulation
+
+1. Did not properly render elements to the DOM.
+
+2. Rendered elements to the DOM, but with some errors.
+
+3. Successfully rendered and updated the DOM as described by the Core Deliverables.
+
+4. Structured HTML creation code cleanly and in a reusable way, using a semantically correct HTML structure without any unnecessary elements.
+
+5. Completed at least one Advanced Deliverable.
+
+### Events
+
+1. Did not attach event listeners to respond to events.
+
+2. Attached event listeners, but incompletely or with some errors.
+
+3. Successfully attached event listeners to handle DOM events and met all of the Core Deliverables.
+
+4. Structured code in a clean and reusable way, splitting functions, using descriptive names and using target properties effectively.
+
+5. Completed at least one Advanced Deliverable.
+
+### Communication with the Server
+
+1. Unable to communicate with the server.
+
+2. Partially able to communicate with the server, but incompletely or with some errors.
+
+3. Able to perform a GET and a non-GET request successfully. All Core Deliverables met.
+
+4. Code structured in a clean and reusable way, splitting into functions and reusing them where needed, with clear function and variable naming.
+
+5. Completed at least one Advanced Deliverable.
