@@ -71,7 +71,7 @@ The listed films should be added to the div with an id of `films`.  Here is samp
 
 4. Structured HTML creation code cleanly and in a reusable way, using a semantically correct HTML structure without any unnecessary elements.
 
-5. Completed at least one Advanced Deliverable.
+5. All of the above, plus completed at least one Advanced Deliverable.
 
 ### Events
 
@@ -83,7 +83,7 @@ The listed films should be added to the div with an id of `films`.  Here is samp
 
 4. Structured code in a clean and reusable way, splitting functions, using descriptive names and using target properties effectively.
 
-5. Completed at least one Advanced Deliverable.
+5. All of the above, plus completed at least one Advanced Deliverable.
 
 ### Communication with the Server
 
@@ -95,4 +95,4 @@ The listed films should be added to the div with an id of `films`.  Here is samp
 
 4. Code structured in a clean and reusable way, splitting into functions and reusing them where needed, with clear function and variable naming.
 
-5. Completed at least one Advanced Deliverable.
+5. All of the above, plus completed at least one Advanced Deliverable.
