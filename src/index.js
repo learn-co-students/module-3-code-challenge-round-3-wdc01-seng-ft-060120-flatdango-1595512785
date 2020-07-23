@@ -1,34 +1,45 @@
 document.addEventListener('DOMContentLoaded', () => {
   console.log('dom is loaded')
-  getFilm()
+  getFilms()
   buyTicket()
 })
 
 const baseURL = 'http://localhost:3000'
 const filmsURL = 'http://localhost:3000/films/'
-// GET /films/[:id] (start with /films/1)
-// PATCH /films/[:id]
-// GET /films (for Advanced Deliverables only)
 
 const filmsDiv = () => document.querySelector('#films')
 const posterDiv = () => document.querySelector('#poster')
 const showingDiv = () => document.querySelector('#showing')
 
-const getFilm = () => {
-  fetch(filmsURL + 1)
+const getFilms = () => {
+  fetch(filmsURL)
     .then(resp => resp.json())
-    .then(film => renderFilm(film))
+    .then(films => renderAllFilms(films))
 }
 
-const renderFilm = film => {
-  const filmsDiv = document.querySelector('#films')
+const renderAllFilms = films => {
+  films.forEach(film => renderSideMenu(film))
+}
+
+const renderSideMenu = film => {
+  const menuDiv = document.getElementById('films')
 
   const div = document.createElement('div')
   div.classList += 'film item'
   div.textContent = film.title
-  console.log(filmsDiv)
-  filmsDiv.appendChild(div)
+  div.dataset.filmId = film.id
+  menuDiv.appendChild(div)
 
+  handleTitleFilm(film, div)
+}
+
+const handleTitleFilm = (film, div) => {
+  div.addEventListener('click', () => {
+    renderFilm(film)
+  })
+}
+
+const renderFilm = film => {
   const img = document.getElementById('poster')
   img.src = film.poster
 
@@ -63,7 +74,6 @@ const buyTicket = () => {
     // pull out number of tickts from the dom
     const ticketString = cardDiv.querySelector('#ticket-num').textContent
     const ticketNumber = parseInt(ticketString)
-    console.log(typeof ticketNumber)
 
     if (ticketNumber > 0) {
       makePatchRequest(filmId, ticketNumber)
@@ -86,7 +96,6 @@ const makePatchRequest = (filmId, ticketNumber) => {
   fetch(filmsURL + filmId, patchRequest)
     .then(resp => resp.json())
     .then(patchedFilm => {
-      console.log(patchedFilm)
       // update the dom with response
       updateTicketNumber(patchedFilm)
     })
@@ -97,6 +106,12 @@ const updateTicketNumber = film => {
     const buyButton = document.querySelector('div.button')
     buyButton.textContent = 'Sold Out'
     buyButton.classList.remove('orange')
+
+    // find its title in the menu
+    const divItem = document.querySelector(`div[data-film-id="${film.id}"]`)
+    divItem.style.color = 'red'
+
+    // mark it as sold out
   }
   const ticketSpan = document.querySelector('#ticket-num')
   ticketSpan.textContent = film.tickets_sold
