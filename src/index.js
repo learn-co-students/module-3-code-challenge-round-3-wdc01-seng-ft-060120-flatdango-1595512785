@@ -35,9 +35,11 @@ document.addEventListener("DOMContentLoaded", (e) => {
 			buyTicketButton.addEventListener('click', () => { 
 				sellTicket(filmObject['id'], ticketsSold + 1)
 			})
+			buyTicketButton.textContent = 'Buy Ticket';
 		}
 		else{
 			buyTicketButton.textContent = 'Sold Out';
+			getMovieList();
 		}
 
 	}
@@ -47,8 +49,6 @@ document.addEventListener("DOMContentLoaded", (e) => {
 	//second deliverable:
 	//set event listener for the 'buy ticket' button
 	function sellTicket(id, newTicketNumber){
-		console.log(id)
-		console.log(newTicketNumber)
 		fetch(url + id, {
 			method: 'PATCH',
 			headers: {
@@ -86,10 +86,23 @@ document.addEventListener("DOMContentLoaded", (e) => {
 
 		for(let movie of movieList){
 			const titleLi = document.createElement('li');
+			const titleSpan = document.createElement('span');
 
-			titleLi.textContent = movie['title'];
+			titleSpan.textContent = movie['title'];
+			titleLi.append(titleSpan);
 			moviesUl.append(titleLi);
 			
+			titleLi.addEventListener('click', (e) => {
+				getFilmData(movie['id']);
+			})
+
+			if(movie['capacity'] == movie['tickets_sold']){
+				titleSpan.setAttribute('title', 'Sold Out');
+				
+			}
+//			titleLi.addEventListener('mouseover', (e) => {
+//				titleLi.style('cursor', 'pointer');
+//			})
 		}
 	}
 	//populate with movies from server
