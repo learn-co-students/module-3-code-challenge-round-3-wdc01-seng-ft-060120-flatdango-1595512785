@@ -43,10 +43,14 @@ const renderMovieLi = (movie) => {
     movieDiv.innerText = movie.title;
     movieDiv.classList.add ("film");
     movieDiv.classList.add ("item");
-    if (movie.capacity === movie.tickets_sold){
+    if (movie.capacity == movie.tickets_sold){
         movieDiv.classList.add ("sold-out");
     }
     filmsDiv().appendChild(movieDiv)
+    movieDiv.addEventListener("click", (e) => {
+        renderMovie(movie)
+    })
+
 }
 
 const updateTicketsSold = (id, ticketsSold) => {
@@ -69,6 +73,10 @@ const updateTicketsSold = (id, ticketsSold) => {
     .then(resp => resp.json())
     .then(movie => {
         renderMovie(movie)
+        if(movie.capacity == movie.tickets_sold){
+            let movieDiv = document.querySelector(`#films [data-id="${movie.id}"]`)
+            movieDiv.classList.add("sold-out")
+        }
     });
 }
 
@@ -117,6 +125,8 @@ I should not be able to buy a ticket if the showing is sold out. */
 
 // Click on a movie in the menu to replace the currently displayed movie's details with the new movie's details.
 
-// add an event listener to filmsDiv, event target shoud
-// Buy a ticket for any movie and update the tickets sold for that movie, not just the first.
-// Indicate in the menu which movies are sold out.
+// add an event listener to filmsDiv, event target should let me traverse to get films id, then run a fetch request to get that film
+// Buy a ticket for any movie and update the tickets sold for that movie, not just the first. LOL,  DIDNT EVEN NEED TO DO THAT BECAUSE I ADDED IT DIRECTLY TO THE INITIAL RENDER!!!
+// Indicate in the menu which movies are sold out. 
+
+// just add "sold-out" to the moviediv's classlist should do it, but I need to find the moviediv, good thing I set dataset.id on all the movieDivs, so I should just be able to run a query selector for them this should all be done ont he button
