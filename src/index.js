@@ -49,15 +49,23 @@ let renderMovie = (movie) => {
     movieTicketNum.innerText = remainingTicketNum
 
     let buyTicketButton = document.querySelector('div.button')
-    buyTicketButton.addEventListener('click', (e) => {
-        e.preventDefault()
-
-        if (remainingTicketNum === 0) {
-            alert("Sorry, this showing is sold out!")
-        } else if (remainingTicketNum >= 1) {
-            buyTicket(movie, movieTicketNum)
-        }
-    })
+    if (remainingTicketNum === 0 ) {
+        let buttonDiv = document.querySelector('.extra')
+        buttonDiv.innerHTML = `<div class="ui sold-out button">Sold Out</div>`
+    } else if (remainingTicketNum >= 1) {
+        buyTicketButton.addEventListener('click', (e) => {
+            e.preventDefault()
+                
+            if (remainingTicketNum >= 2) {
+                buyTicket(movie, movieTicketNum)
+            } else if (remainingTicketNum = 1) {
+                buyTicket(movie, movieTicketNum)
+                let buttonDiv = document.querySelector('.extra')
+                buttonDiv.innerHTML = `<div class="ui sold-out button">Sold Out</div>`
+            }
+        })
+    }
+    
     
 }
 
