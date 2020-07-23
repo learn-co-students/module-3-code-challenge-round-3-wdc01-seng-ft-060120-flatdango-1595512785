@@ -88,5 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     })
 
+    
     fetchFirstMovie();
 })
