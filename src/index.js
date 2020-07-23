@@ -21,6 +21,8 @@ function renderMovie(movie){
     let divRunTime = divCard.getElementsByTagName('div')[1]
     let divDescription = divCard.getElementsByTagName('div')[2].firstElementChild
     let filmInfo = divDescription.getElementsByTagName('div')[0]
+    let showtime = document.getElementById("showtime")
+    let ticketNum = document.getElementById("ticket-num")
     let divExtraContent = divCard.getElementsByTagName('div')[3]
     console.log(divDescription)
 
@@ -28,6 +30,8 @@ function renderMovie(movie){
     divTitle.innerText = movie.title;   
     divRunTime.innerText = movie.runtime;
     filmInfo.innerText = movie.description;
+    showtime.innerText = movie.showtime;
+    ticketNum.innerText = movie.tickets_sold;
 }
 
 
