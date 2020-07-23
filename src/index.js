@@ -1,16 +1,31 @@
 const BASEURL = "http://localhost:3000/films/"
-const filmsDiv = () => document.querySelector("#films")
+const filmsDiv = document.querySelector("#films")
 const posterDiv = () => document.querySelector("#poster")
 const showingDiv = () => document.querySelector("#showing")
 
 document.addEventListener('DOMContentLoaded', (e) => {
     e.preventDefault()
 
-    fetchMovies()
+    // fetchFirstMovie()
+    fetchAllMovies()
 })
 
 let renderMovies = (movies) => {
-    movies.forEach(movie => renderMovie(movie))
+    renderMovie(movies[0])
+    filmsDiv.innerHTML = ""
+    movies.forEach(movie => renderMovieList(movie))
+}
+
+let renderMovieList = (movie) => {
+    let filmDiv = document.createElement('div')
+    filmDiv.classList += 'film item'
+    filmsDiv.appendChild(filmDiv) 
+
+    filmDiv.innerText = movie.title.toUpperCase()
+    filmDiv.dataset.id = movie.id
+    filmDiv.addEventListener('click', (e) => {
+        renderMovie(movie)
+    })
 }
 
 let renderMovie = (movie) => {
@@ -48,7 +63,6 @@ let renderMovie = (movie) => {
 
 let buyTicket = (movie, movieTicketNum) => {
     let newTicketsSold = movie.tickets_sold + 1
-    console.log(newTicketsSold)
 
     let editTicketNum = {
         'tickets_sold': newTicketsSold
@@ -68,8 +82,14 @@ let buyTicket = (movie, movieTicketNum) => {
     .then(movie => renderMovie(movie))
 }
 
-let fetchMovies = () => {
+let fetchFirstMovie = () => {
     fetch(BASEURL + 1)
     .then(response => response.json())
     .then(movie => renderMovie(movie))
+}
+
+let fetchAllMovies = () => {
+    fetch(BASEURL)
+    .then(response => response.json())
+    .then(movies => renderMovies(movies))
 }
