@@ -73,7 +73,7 @@ const updateTicketsSold = (id, ticketsSold) => {
     .then(resp => resp.json())
     .then(movie => {
         renderMovie(movie)
-        if(movie.capacity == movie.tickets_sold){
+        if(parseInt(movie.capacity) === parseInt(movie.tickets_sold)){
             let movieDiv = document.querySelector(`#films [data-id="${movie.id}"]`)
             movieDiv.classList.add("sold-out")
         }
