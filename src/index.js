@@ -5,7 +5,7 @@ const showingDiv = () => document.querySelector("#showing")
 
 document.addEventListener("DOMContentLoaded",() =>
 {
-  fetchFilm(1);
+  fetchFilm(3);
 
 });
 
@@ -23,19 +23,55 @@ const showFilm = (film) =>
   const filmInfo = document.getElementById("film-info");
   const showtime = document.getElementById("showtime");
   const ticketNum = document.getElementById("ticket-num");
-
-  const available = film.capacity - film.tickets_sold;
-  ticketNum.innerText = available === 0 ? "[X]" : available;
+  
   showtime.innerText = film.showtime;
   filmInfo.innerText = film.description;
   runtime.innerText = film.runtime;
   title.textContent = film.title;
 
+  updateTicketNumDiv(film,ticketNum);
+
   const buyTicket = document.getElementsByClassName("ui orange button")[0];
-  buyTicket.addEventListener("click",clickHandler(film,ticketNum));
+  buyTicket.addEventListener("click",e => clickHandler(e,film.tickets_sold,film.capacity,ticketNum));
 }
 
-const clickHandler = (film,ticketNum) =>
+const clickHandler = (e,sold,capacity,ticketNum) =>
 {
-  console.log(film);
+  
+  if (!!(capacity - sold))
+    incrementTicketPatch(sold,ticketNum);
 }
+
+const incrementTicketPatch = (sold,ticketNum) =>
+{
+  console.log(film.tickets_sold);
+  const filmData = {tickets_sold: sold + 1}
+  console.log(filmData);
+  const config = 
+  {
+    method: "PATCH",
+    headers:
+    {
+      "Content-Type": 'application/json',
+      "Accept": 'application/json'
+    },
+    body: JSON.stringify(filmData)
+  };
+  fetch(URL + film.id,config)
+  .then(r => r.json())
+  .then(filmJson => updateTicketNumDiv(filmJson,ticketNum));//filmJson => updateTicketNumDiv(filmJson,ticketNum)
+}
+
+const updateTicketNumDiv = (film,ticketNum) =>
+{
+  ticketNum.textContent = !!available(film) ? available(film) : '[X]';
+
+}
+
+const available = (film) =>
+{
+  return (film.capacity - film.tickets_sold);
+}
+
+
+
