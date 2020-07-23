@@ -43,16 +43,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         showCurrentMovie(movie, movieTitleName, movieId);
 
-        // movieTitleName.addEventListener('click', (event) => {
-        
-        //     console.log('clicked')
-        // }
     }
 
     const showCurrentMovie = (movie, movieName, movieId) => {
 
         movieName.addEventListener('click', (event) => {
             console.log(movie)
+
+            // clear current movie showing then render the clicked one
+            const ticketSpan = document.getElementById('ticket-num')
+            ticketSpan.innerText = ''
+            const title = document.getElementById('title')
+            title.innerText = ''
+            const runtime = document.getElementById('runtime')
+            runtime.innerText = ''
+            const filmInfo = document.getElementById('film-info')
+            filmInfo.innerText = ''
+            const showtimes = document.getElementById('showtime')
+            showtimes.innerText = ''
+            const poster = document.getElementById('poster')
+            poster.src = ''
+            const buyTicketButton = document.querySelector('.ui.orange.button')
+
+            renderMovie(movie, ticketSpan);
+
         })
 
     }
