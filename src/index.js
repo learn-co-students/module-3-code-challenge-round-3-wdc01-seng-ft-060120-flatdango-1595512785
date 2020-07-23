@@ -67,6 +67,35 @@ document.addEventListener("DOMContentLoaded", (e) => {
 	//if possible, patch number of tickets on server
 	//if not possible, alert the user the movie is sold out
 	//page should say 'sold out' as soon as last ticket is sold
+	
+	//advanced deliverable: movie list
+	//get list div
+	function getMovieList(){
+		
+		
+		fetch(url)
+		.then(resp => resp.json())
+		.then(json => displayMovieList(json))
+	}
+
+	function displayMovieList(movieList){
+		const listDiv = document.querySelector(`#films .film`);
+		const moviesUl = document.createElement('ul');
+
+		listDiv.append(moviesUl);
+
+		for(let movie of movieList){
+			const titleLi = document.createElement('li');
+
+			titleLi.textContent = movie['title'];
+			moviesUl.append(titleLi);
+			
+		}
+	}
+	//populate with movies from server
+	//link to movie display page
+	//indicate sold out
 
 	getFilmData(1);
+	getMovieList();
 })
