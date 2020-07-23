@@ -38,6 +38,23 @@ document.addEventListener("DOMContentLoaded", () => {
         const movieTitleName = document.createElement('div')
         movieTitleName.innerText = movie.title
         movieTitleList.appendChild(movieTitleName)
+
+        const movieId = movie.id
+
+        showCurrentMovie(movie, movieTitleName, movieId);
+
+        // movieTitleName.addEventListener('click', (event) => {
+        
+        //     console.log('clicked')
+        // }
+    }
+
+    const showCurrentMovie = (movie, movieName, movieId) => {
+
+        movieName.addEventListener('click', (event) => {
+            console.log(movie)
+        })
+
     }
 
     const renderMovie = (movie,ticketSpan) => {
