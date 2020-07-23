@@ -48,3 +48,9 @@ img {
 #film-info {
     padding-bottom: 15px;
 }
+
+#movie-list-title {
+    color: red;
+    padding:15px;
+    
+}
