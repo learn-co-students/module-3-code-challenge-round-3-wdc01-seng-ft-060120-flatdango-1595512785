@@ -45,16 +45,28 @@ const handleClicks = (film, buyTix) => {
 
     buyTix.addEventListener('click', function(e){
         
-        console.log(film)
-        film.tickets_sold = film.tickets_sold + 1
-        console.log(film.tickets_sold)
-        film.capacity = film.capacity - 1
-        console.log(film.capacity)
-
-        movieTickets.textContent = parseInt(film.capacity)
-
-        console.log(film.capacity)
+        // if(movieTickets.textContent > 0)
         
+        const newTixSold = film.tickets_sold + 1
+        const availableTix = parseInt(film.capacity) - newTixSold        
+
+        fetch(firstFilmUrl, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'accept': 'application/json'
+            },
+            body: JSON.stringify({
+                tickets_sold: newTixSold
+            })
+
+        // else(
+        //     buyTix.setAttribute('disabled', false)
+        // )
+
+        })
     })
+
+    
 
 }
