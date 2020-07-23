@@ -48,11 +48,16 @@ document.addEventListener('DOMContentLoaded', () => {
         showtime.innerText = firstMovie.showtime;
 
         const ticketNum = document.querySelector('#ticket-num');
-        ticketNum.innerText = parseInt(firstMovie.capacity, 10) - firstMovie.tickets_sold;
+        const ticketsRemaining = parseInt(firstMovie.capacity, 10) - firstMovie.tickets_sold;
+        ticketNum.innerText = ticketsRemaining;
 
         const buyButton = document.querySelector('#buy-button');
         buyButton.dataset.movieId = firstMovie.id;
         buyButton.dataset.tickets = firstMovie.tickets_sold;
+
+        if (ticketsRemaining === 0) {
+            generateSoldOutButton();
+        }
     }
 
     const updateTickets = (movie) => {
