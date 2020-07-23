@@ -14,6 +14,8 @@ function fetchMovie(url) {
 }
 
 function displayMovie(movie) {
+  const card = document.querySelector('.card')
+  card.dataset.id = movie.id
   const title = document.getElementById('title')
   const runtime = document.getElementById('runtime')
   const filmInfo = document.getElementById('film-info')
@@ -24,6 +26,39 @@ function displayMovie(movie) {
   runtime.innerText = movie.runtime
   filmInfo.innerText = movie.description
   showtime.innerText = movie.showtime
+  ticketNum.dataset.capacity = parseInt(movie.capacity)
+  ticketNum.dataset.sold = movie.tickets_sold
   ticketNum.innerText = `${parseInt(movie.capacity) - movie.tickets_sold}`
   poster.src = movie.poster
+}
+
+document.addEventListener('click', (e) => {
+  if(e.target.innerText === "Buy Ticket") {
+    const movieToUpdate = e.target.closest('.card')
+    buyTicket(movieToUpdate)
+  }
+});
+
+function buyTicket(movieCard) {
+  const ticketData = movieCard.querySelector('#ticket-num')
+  const sold = ticketData.dataset.sold;
+  const capacity = ticketData.dataset.capacity;
+  if(sold < capacity) {
+    const movieObj = {
+      tickets_sold: parseInt(sold) + 1
+    }
+    const patchRequest = {
+      method: 'PATCH',
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json"
+      },
+      body: JSON.stringify(movieObj)
+    }
+    fetch(`${url}/${movieCard.dataset.id}`, patchRequest)
+    .then(resp => resp.json())
+    .then(movie => displayMovie(movie))
+  } else {
+    alert("Sorry, that showing is sold out!")
+  }
 }
