@@ -39,17 +39,30 @@ function renderMovie(movie){
     descrip.innerText = movie.description
 
     const ticket = document.getElementById('ticket-num')
-    ticket.innerText = `${movie.capacity}-${movie.tickets_sold}`
-    console.log(ticket)
+    let capacity = `${movie.capacity}`
+    let ticketSold = `${movie.tickets_sold}`
+    let remaining = capacity - ticketSold
+    
+    ticket.innerText = remaining
+   
+    //add event listener on buy ticket
+    const buyTicket = document.getElementsByClassName("ui orange button")
+
+    buyTicket.addEventListener('submit', function(e){
+        const ticket = document.getElementById('ticket-num')
+        let capacity = `${movie.capacity}`
+        let ticketSold = `${movie.tickets_sold}`
+        let remaining = capacity - ticketSold
+        function numberOfTicket(capacity,ticketSold, remaining){
+            remaining = capacity - ticketSold
+        }
+        numberOfTicket()
+    })
+    
 
     
     
     
 
-    // const divTitle = document.createElement('div')
-    // divTitle.innerText = movie.title
-    // console.log(divTitle)
-    // divClass.append(divTitle)
     
-    // console.log(divClass)
 }
