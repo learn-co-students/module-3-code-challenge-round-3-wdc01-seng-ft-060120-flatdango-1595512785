@@ -9,20 +9,21 @@ function getMovie(id){
     fetch(`${url}/${id}`).then(response=>response.json()).then(movie=>renderMovie(movie))
 }
 
-function purchaseTicket(movie){
-    let tickets_sold = movie.tickets_sold + 1
+function purchaseTicket(movie,remainingTickets){
+    if (remainingTickets > 0) {
+        let tickets_sold = movie.tickets_sold + 1
 
-    if tickets_sold <= movie
-    fetch(`${url}/${movie.id}`,{
-        method: "PATCH",
-        headers: {
-            "content-type": "application/json",
-            "accept": "application/json"
-          },
-        body:JSON.stringify({ tickets_sold })
-    })
-        .then(response=>response.json())
-        .then(movie=>renderMovie(movie))
+        fetch(`${url}/${movie.id}`,{
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                "accept": "application/json"
+            },
+            body:JSON.stringify({ tickets_sold })
+        })
+            .then(response=>response.json())
+            .then(movie=>renderMovie(movie))
+    }
 }
 
 function renderMovie(movie){
@@ -34,9 +35,9 @@ function renderMovie(movie){
     document.getElementById('runtime').textContent = `${movie.runtime} minutes`
     document.getElementById('showtime').textContent = movie.showtime
     document.getElementById('poster').src = movie.poster
-    document.getElementById('ticket-num').textContent = `${movie.capacity}`-`${movie.tickets_sold}`
+    let remainingTickets = document.getElementById('ticket-num').textContent = `${movie.capacity}`-`${movie.tickets_sold}`
     document.getElementsByClassName('ui orange button')[0].addEventListener('click',event=>{
-        purchaseTicket(movie,)
+        purchaseTicket(movie,remainingTickets)
     })
 
 }
