@@ -50,7 +50,7 @@ let renderMovie = (movie) => {
 
     let buyTicketButton = document.querySelector('div.button')
     buyTicketButton.dataset.id = movie.id
-    console.log(remainingTicketNum)
+    
     if (remainingTicketNum === 0 ) {
         let buttonDiv = document.querySelector('.extra')
         buttonDiv.innerHTML = `<div class="ui sold-out button">Sold Out</div>`
