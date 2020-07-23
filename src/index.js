@@ -9,15 +9,18 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const getMovie = () => {
 
-        fetch(url + 1)
+        fetch(url + 2)
         .then(resp => resp.json())
         .then(movie => {
-            renderMovie(movie);
+            const ticketSpan = document.getElementById('ticket-num')
+            renderMovie(movie, ticketSpan);
         })
 
     }
 
-    const renderMovie = (movie) => {
+    const renderMovie = (movie,ticketSpan) => {
+        ticketSpan.innerText = ''
+
         const title = document.getElementById('title')
         title.innerText = movie.title
 
@@ -30,9 +33,9 @@ document.addEventListener("DOMContentLoaded", () => {
         const showtimes = document.getElementById('showtime')
         showtimes.innerText = movie.showtime
 
-        const ticketNumLeft = document.getElementById('ticket-num')
+        // const ticketNumLeft = document.getElementById('ticket-num')
         const movieString = parseInt(movie.capacity, 10)
-        ticketNumLeft.innerText = movieString - movie.tickets_sold
+        ticketSpan.innerText = movieString - movie.tickets_sold
 
         const poster = document.getElementById('poster')
         poster.src = movie.poster
@@ -41,19 +44,12 @@ document.addEventListener("DOMContentLoaded", () => {
         
         buyTicketButton.addEventListener('click', (event) => {
             event.preventDefault();
-
             const movieId = movie.id
-
-            // when a ticket button is clicked the tickets_sold attribute is increased by one .
-            // have a check where if the tickets sold is <= 0 return 'sold out!'
-            console.log(movie)
-            // console.log(ticketNumLeft.innerText -= 1)
-            // ticketNumLeft.innerText
-
-            const tickets_sold = movie.tickets_sold
-            console.log(tickets_sold)
-
-            // updateTicketCount(movieId, body);
+            const tickets_sold = movie.tickets_sold + 1
+        
+            body = {tickets_sold}
+    
+            updateTicketCount(movieId, body);
         })
 
     }
@@ -67,7 +63,12 @@ document.addEventListener("DOMContentLoaded", () => {
             },
             body: JSON.stringify(body)
         }
-        fetch(url + 1, options)
+        fetch(url + id, options)
+        .then(resp => resp.json())
+        .then(movieData => {
+            const ticketSpan = document.getElementById('ticket-num')
+            renderMovie(movieData, ticketSpan);
+        })
     }
 
 
