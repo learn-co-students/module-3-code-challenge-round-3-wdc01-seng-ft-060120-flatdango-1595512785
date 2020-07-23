@@ -5,7 +5,31 @@ const showingDiv = () => document.querySelector("#showing")
 
 document.addEventListener("DOMContentLoaded", () => {
   fetchMovie(`${url}/1`)
+  fetchMovieList(url)
 })
+
+function fetchMovieList(url) {
+  fetch(url)
+  .then(response => response.json())
+  .then(movies => displayMovieList(movies))
+}
+
+function displayMovieList(movies) {
+  movies.forEach(movie => listMovie(movie))
+}
+
+function listMovie(movie) {
+  const movieList = document.getElementById('films')
+  const filmDiv = document.createElement('div')
+  filmDiv.classList += 'film'
+  filmDiv.classList += ' item'
+  if(movie.tickets_sold === parseInt(movie.capacity)) {
+    filmDiv.classList += ' sold-out'
+  }
+  filmDiv.textContent = movie.title
+  console.log(movieList)
+  movieList.append(filmDiv)
+}
 
 function fetchMovie(url) {
   fetch(url)
