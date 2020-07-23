@@ -49,6 +49,8 @@ let renderMovie = (movie) => {
     movieTicketNum.innerText = remainingTicketNum
 
     let buyTicketButton = document.querySelector('div.button')
+    buyTicketButton.dataset.id = movie.id
+    console.log(remainingTicketNum)
     if (remainingTicketNum === 0 ) {
         let buttonDiv = document.querySelector('.extra')
         buttonDiv.innerHTML = `<div class="ui sold-out button">Sold Out</div>`
@@ -57,9 +59,9 @@ let renderMovie = (movie) => {
             e.preventDefault()
                 
             if (remainingTicketNum >= 2) {
-                buyTicket(movie, movieTicketNum)
+                buyTicket(movie, movieTicketNum, buyTicketButton)
             } else if (remainingTicketNum = 1) {
-                buyTicket(movie, movieTicketNum)
+                buyTicket(movie, movieTicketNum, buyTicketButton)
                 let buttonDiv = document.querySelector('.extra')
                 buttonDiv.innerHTML = `<div class="ui sold-out button">Sold Out</div>`
             }
@@ -69,7 +71,7 @@ let renderMovie = (movie) => {
     
 }
 
-let buyTicket = (movie, movieTicketNum) => {
+let buyTicket = (movie, movieTicketNum, buyTicketButton) => {
     let newTicketsSold = movie.tickets_sold + 1
 
     let editTicketNum = {
@@ -85,7 +87,7 @@ let buyTicket = (movie, movieTicketNum) => {
         body: JSON.stringify(editTicketNum)
     }
     
-    fetch(BASEURL + movie.id, options)
+    fetch(BASEURL + buyTicketButton.dataset.id, options)
     .then(response => response.json())
     .then(movie => renderMovie(movie))
 }
