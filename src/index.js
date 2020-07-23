@@ -6,7 +6,8 @@ const showingDiv = () => document.querySelector("#showing")
 document.addEventListener("DOMContentLoaded", () => {
     fetchMovies()
     document.addEventListener("click", (e) => {
-        console.log(e.target.parentNode)
+        if(e.target.innerText === "Buy Ticket")
+            buyTicket(e)
     })
 });
 
@@ -39,4 +40,14 @@ function renderMovie(movie) {
     //render available tickets
     let movieTicketsAvailable = document.getElementById("ticket-num")
     movieTicketsAvailable.textContent = `${parseInt(movie.capacity) - movie.tickets_sold} remaining tickets`
-}
+
+    function buyTicket(e) {
+        let movieCard = e.target.parentNode.parentNode
+        let ticketsRemaining = movieCard.childNodes[5].childNodes[1].childNodes[5]
+        //tickets available should decrease with each click
+        
+    }
+
+}; 
+
+
