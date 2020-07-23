@@ -65,10 +65,7 @@ const buyTicket = () => {
     const ticketNumber = parseInt(ticketString)
     console.log(typeof ticketNumber)
 
-    if (ticketNumber <= 0) {
-      console.log('ticket is at zero or below')
-    } else {
-      // make patch request using id
+    if (ticketNumber > 0) {
       makePatchRequest(filmId, ticketNumber)
     }
   })
@@ -96,6 +93,11 @@ const makePatchRequest = (filmId, ticketNumber) => {
 }
 
 const updateTicketNumber = film => {
+  if (film.tickets_sold === 0) {
+    const buyButton = document.querySelector('div.button')
+    buyButton.textContent = 'Sold Out'
+    buyButton.classList.remove('orange')
+  }
   const ticketSpan = document.querySelector('#ticket-num')
   ticketSpan.textContent = film.tickets_sold
 }
