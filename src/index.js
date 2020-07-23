@@ -19,6 +19,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     }
 
+    const listOfMovies = () => {
+        fetch(url)
+        .then(resp => resp.json())
+        .then(movieList => {
+            // console.log(movieList)
+            renderMovieTitles(movieList)
+        })
+    }
+
+    const renderMovieTitles = (movieArray) => {
+        movieArray.forEach(movie => renderMovieTitle(movie))
+    }
+
+    const renderMovieTitle = (movie) => {
+        // render movie titles to the left of the page
+        const movieTitleList = document.querySelector('.film.item')
+        const movieTitleName = document.createElement('div')
+        movieTitleName.innerText = movie.title
+        movieTitleList.appendChild(movieTitleName)
+    }
+
     const renderMovie = (movie,ticketSpan) => {
         ticketSpan.innerText = ''
 
@@ -77,4 +98,5 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     getMovie();
+    listOfMovies();
 })
