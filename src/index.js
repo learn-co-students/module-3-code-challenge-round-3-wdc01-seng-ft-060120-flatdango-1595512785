@@ -65,7 +65,9 @@ fetch(`${url}/${film.id}`, patchRequest)
 .then( res => res.json() )
 .then( updatedFilm => ticketNum.textContent -= 1 )
 
-if(ticketNum.textContent = 0 ){
-    buyTicketButton.disabled = true;
-}
+  //if Remaining tickets is 0 disable button and change its text to Sold OUT
+// if(ticketNum.textContent = 0 ){
+//     buyTicketButton.disabled = true;
+//     buyTicketButton.textContent = "Sold out"
+// }
 }
