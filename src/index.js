@@ -4,9 +4,14 @@ const posterDiv = () => document.querySelector("#poster")
 const showingDiv = () => document.querySelector("#showing")
 
 getMovie(1)
+getMovies()
 
 function getMovie(id){
     fetch(`${url}/${id}`).then(response=>response.json()).then(movie=>renderMovie(movie))
+}
+
+function getMovies(){
+    fetch(url).then(response=>response.json()).then(movies=>renderMovies(movies))
 }
 
 function purchaseTicket(movie,remainingTickets){
@@ -26,9 +31,28 @@ function purchaseTicket(movie,remainingTickets){
     }
 }
 
+function renderMovies(movies){
+    titlesDiv = document.getElementsByClassName('film item')[1]
+    titlesDiv.textContent = ""
+    movies.forEach(movie=>{
+        let titleHeading = document.createElement('div')
+        titleHeading.innerHTML = `<hr> ${movie.title}`
+        titleHeading.classList += 'film item'
+        titlesDiv.append(titleHeading)
+        if (movie.capacity - movie.tickets_sold === 0){
+            titleHeading.classList = 'sold-out film item'
+        }
+
+        titleHeading.addEventListener('click',event=>{
+            getMovie(movie.id)
+            if (movie.capacity - movie.tickets_sold === 0){
+                titleHeading.classList = 'sold-out film item'
+            }
+        })
+    })
+}
+
 function renderMovie(movie){
-    titleDiv = document.getElementsByClassName('film item')[1]
-    titleDiv.textContent = movie.title
 
     document.getElementById('title').textContent = movie.title
     document.getElementById('film-info').textContent = movie.description
