@@ -23,8 +23,31 @@ document.addEventListener("DOMContentLoaded", (e) => {
     let id = 2
     getMovie(id)
 
+    getMovies()
+
 
 })
+
+const getMovies = () => {
+    fetch(url)
+    .then(resp => resp.json())
+    .then(movies => {
+        filmsDiv().innerHTML = ""
+        movies.forEach(renderMovieLi)
+    })
+}
+
+const renderMovieLi = (movie) => {
+    const movieDiv = document.createElement("div");
+    movieDiv.dataset.id = movie.id
+    movieDiv.innerText = movie.title;
+    movieDiv.classList.add ("film");
+    movieDiv.classList.add ("item");
+    if (movie.capacity === movie.tickets_sold){
+        movieDiv.classList.add ("sold-out");
+    }
+    filmsDiv().appendChild(movieDiv)
+}
 
 const updateTicketsSold = (id, ticketsSold) => {
     const newTicketsSold = (1 + parseInt(ticketsSold, 10));
@@ -83,3 +106,17 @@ const renderMovie = (movie) => {
 /* See the first movie's details, including its poster, title, runtime, showtime, and available tickets (the number of tickets left will need to be derived from the theater's capacity and the number of tickets sold)
 Buy a ticket for a movie. The number of tickets sold for that movie should be persisted, and I should be able to see the number of available tickets decreasing on the frontend.
 I should not be able to buy a ticket if the showing is sold out. */
+
+// As a user, I can:
+
+// See a menu of all movies on the left side of the page.
+
+// - fetch request to /base url and for each loop to display each one as a list item
+// DONE!!!
+
+
+// Click on a movie in the menu to replace the currently displayed movie's details with the new movie's details.
+
+// add an event listener to filmsDiv, event target shoud
+// Buy a ticket for any movie and update the tickets sold for that movie, not just the first.
+// Indicate in the menu which movies are sold out.
