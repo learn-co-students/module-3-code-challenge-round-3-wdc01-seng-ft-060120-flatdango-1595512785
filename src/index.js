@@ -3,8 +3,6 @@ const filmsDiv = document.querySelector("#films")
 
 document.addEventListener('DOMContentLoaded', () => {
 
-    const ticketNum = document.querySelector('#ticket-num');
-
     const fetchFirstMovie = () => {
         fetch(url)
         .then(response => response.json())
@@ -12,7 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => alert(error));
     }
 
-    const sendPatchRequest = (movie) => {
+    const sendPatchRequest = (movieId, tickets) => {
+        const newTickets = tickets + 1;
         const options = {
             method: 'PATCH',
             headers: {
@@ -20,11 +19,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 'content-type': 'application/json'
             },
             body: JSON.stringify({
-                tickets_sold: movie.tickets_sold + 1
+                tickets_sold: newTickets
             })
         }
 
-        fetch(`${url}/${movie.id}`, options)
+        fetch(`${url}/${movieId}`, options)
         .then(response => response.json())
         .then(movie => updateTickets(movie))
         .catch(error => alert(error));
@@ -32,9 +31,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const renderFirstMovie = (movies) => {
         const firstMovie = movies[0];
-
-        const showingDiv = document.querySelector("#showing")
-        showingDiv.dataset.movieId = firstMovie.id;
 
         const poster = document.querySelector("#poster")
         poster.src = firstMovie.poster;
@@ -51,22 +47,41 @@ document.addEventListener('DOMContentLoaded', () => {
         const showtime = document.querySelector('#showtime');
         showtime.innerText = firstMovie.showtime;
 
+        const ticketNum = document.querySelector('#ticket-num');
         ticketNum.innerText = parseInt(firstMovie.capacity, 10) - firstMovie.tickets_sold;
 
-        addSoldButtonEventListener(firstMovie);
+        const buyButton = document.querySelector('#buy-button');
+        buyButton.dataset.movieId = firstMovie.id;
+        buyButton.dataset.tickets = firstMovie.tickets_sold;
     }
 
     const updateTickets = (movie) => {
-        ticketNum.innerText = parseInt(movie.capacity, 10) - movie.tickets_sold;
+        const ticketsRemaining = parseInt(movie.capacity, 10) - movie.tickets_sold;
+
+        const ticketNum = document.querySelector('#ticket-num');
+        ticketNum.innerText = ticketsRemaining;
+
+        const buyButton = document.querySelector('#buy-button');
+        buyButton.dataset.tickets = movie.tickets_sold;
+
+        if (ticketsRemaining === 0) {
+            generateSoldOutButton();
+        }
     }
 
-    const addSoldButtonEventListener = (movie) => {
-        const buyButton = document.querySelector(`.button`);
-        buyButton.addEventListener('click', () => {
-            sendPatchRequest(movie);
-
-        })
+    const generateSoldOutButton = () => {
+        const buyButton = document.querySelector('#buy-button');
+        buyButton.id = 'sold-out-button';
+        buyButton.innerText = 'Sold Out'
     }
+
+    document.addEventListener('click', (event) => {
+        if (event.target.id === 'buy-button') {
+            const movieId = event.target.dataset.movieId;
+            const tickets = parseInt(event.target.dataset.tickets, 10);
+            sendPatchRequest(movieId, tickets);
+        }
+    })
 
     fetchFirstMovie();
 })
