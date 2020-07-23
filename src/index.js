@@ -21,6 +21,7 @@ function displayMovieList(movies) {
 function listMovie(movie) {
   const movieList = document.getElementById('films')
   const filmDiv = document.createElement('div')
+  filmDiv.dataset.id = movie.id
   filmDiv.classList += 'film'
   filmDiv.classList += ' item'
   if(movie.tickets_sold === parseInt(movie.capacity)) {
@@ -60,6 +61,8 @@ document.addEventListener('click', (e) => {
   if(e.target.innerText === "Buy Ticket") {
     const movieToUpdate = e.target.closest('.card')
     buyTicket(movieToUpdate)
+  } else if(e.target.classList.contains('film')) {
+    fetchMovie(`${url}/${e.target.dataset.id}`)
   }
 });
 
