@@ -25,9 +25,19 @@ function purchaseTicket(movie,remainingTickets){
                 "accept": "application/json"
             },
             body:JSON.stringify({ tickets_sold })
-        })
+            })  
             .then(response=>response.json())
-            .then(movie=>renderMovie(movie))
+            .then((movie)=>{
+                renderMovie(movie)
+                checkMovieStatus(movie)
+        })
+    }
+}
+
+function checkMovieStatus(movie){
+    let filmItem = document.getElementById(`movie: ${movie.id}`)
+    if (movie.capacity - movie.tickets_sold === 0){
+        filmItem.classList = 'sold-out film item'
     }
 }
 
@@ -38,6 +48,7 @@ function renderMovies(movies){
         let titleHeading = document.createElement('div')
         titleHeading.innerHTML = `<hr> ${movie.title}`
         titleHeading.classList += 'film item'
+        titleHeading.id = `movie: ${movie.id}`
         titlesDiv.append(titleHeading)
         if (movie.capacity - movie.tickets_sold === 0){
             titleHeading.classList = 'sold-out film item'
@@ -45,9 +56,6 @@ function renderMovies(movies){
 
         titleHeading.addEventListener('click',event=>{
             getMovie(movie.id)
-            if (movie.capacity - movie.tickets_sold === 0){
-                titleHeading.classList = 'sold-out film item'
-            }
         })
     })
 }
