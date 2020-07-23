@@ -1,4 +1,5 @@
 const url = "http://localhost:3000/films/"
+const firstFilmUrl = url + 1
 const filmsDiv = () => document.querySelector("#films")
 const posterDiv = () => document.querySelector("#poster")
 const showingDiv = () => document.querySelector("#showing")
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
     
     const getMovie = () => {
 
-        fetch(url + 2)
+        fetch(firstFilmUrl)
         .then(resp => resp.json())
         .then(movie => {
             const ticketSpan = document.getElementById('ticket-num')
@@ -33,7 +34,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const showtimes = document.getElementById('showtime')
         showtimes.innerText = movie.showtime
 
-        // const ticketNumLeft = document.getElementById('ticket-num')
         const movieString = parseInt(movie.capacity, 10)
         ticketSpan.innerText = movieString - movie.tickets_sold
 
@@ -45,11 +45,15 @@ document.addEventListener("DOMContentLoaded", () => {
         buyTicketButton.addEventListener('click', (event) => {
             event.preventDefault();
             const movieId = movie.id
-            const tickets_sold = movie.tickets_sold + 1
-        
-            body = {tickets_sold}
-    
-            updateTicketCount(movieId, body);
+            
+            if (ticketSpan.innerText <= 0){
+                alert("Sold Out!")
+            } else {
+                const tickets_sold = movie.tickets_sold + 1
+                body = {tickets_sold}
+                updateTicketCount(movieId, body);
+            }
+            
         })
 
     }
