@@ -26,12 +26,23 @@ function renderMovie(movie){
     const title = document.getElementById('title')
     title.innerText = movie.title
 
-    get
+    const img = document.getElementById('poster')
+    img.src = movie.poster
+    
+    const show = document.getElementById("showtime")
+    show.innerText = movie.showtime
+    
+    const runtine = document.getElementById('runtine')
+    runtime.innerText = `${movie.runtime} minutes`
+    
+    const descrip = document.getElementById('film-info')
+    descrip.innerText = movie.description
 
-    // const routine = document.getElementById('routine')
-    // routine.innerText = `${movie.routine} minutes`
+    const ticket = document.getElementById('ticket-num')
+    ticket.innerText = `${movie.capacity}-${movie.tickets_sold}`
+    console.log(ticket)
 
-    // console.log(routine)
+    
     
     
 
