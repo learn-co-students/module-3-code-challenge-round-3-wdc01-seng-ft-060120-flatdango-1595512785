@@ -6,6 +6,7 @@ const id = 1
 
 document.addEventListener("DOMContentLoaded", () => {
     getAMovie();
+    // buyATicket();
 })
 
 const getAMovie = () => {
@@ -30,6 +31,46 @@ const renderMovie = (movie) => {
     const ticketsLeft = document.getElementById('ticket-num')
     const totalTickets = parseInt(movie.capacity, 10)
     ticketsLeft.innerText = totalTickets - movie.tickets_sold
-    console.log(ticketsLeft)
+
+    const button = document.querySelectorAll("div")[19].children[0]
+    if( ticketsLeft >= 1){
+        buyATicket(movie, button)
+    }else {
+        console.log("No more tickets sorry")
+    }
+
+    const movieObj = {
+        "title": title.innerText,
+        "runtime": runTime.innerText,
+        "capacity": movie.capacity,
+        "showtime": showTime.innerText,
+        "tickets_sold": movie.tickets_sold,
+        "description": movie.description,
+        "poster": poster.src
+    }
+    // console.log(movieObj)
+}
+
+    const buyATicket = (movie, button, movieObj) => {
+        button.addEventListener('click', () => {
+            movie.tickets_sold = movie.tickets_sold + 1;
+            updateInfo(movie, movieObj)
+        })
+    }
+
+
+const updateInfo = (movieObj) => {
+
+    
+    fetch(`${url}/${id}`, {
+        method: 'PATCH',
+        body: JSON.stringify(movieObj),
+        headers: {
+            'Content-type': 'application/json',
+            Accept: "application/json"
+        }
+    })
+    .then(res => res.json())
+    .then(data => console.log(data))
 }
 
