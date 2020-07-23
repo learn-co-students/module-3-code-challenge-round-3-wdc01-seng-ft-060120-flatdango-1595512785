@@ -2,7 +2,7 @@ const url = "http://localhost:3000/films"
 const filmsDiv = () => document.querySelector("#films")
 const posterDiv = () => document.querySelector("#poster")
 const showingDiv = () => document.querySelector("#showing")
-const id = 1
+const id = 2
 
 document.addEventListener("DOMContentLoaded", () => {
     getAMovie();
@@ -33,11 +33,9 @@ const renderMovie = (movie) => {
     ticketsLeft.innerText = totalTickets - movie.tickets_sold
 
     const button = document.querySelectorAll("div")[19].children[0]
-    if( ticketsLeft >= 1){
-        buyATicket(movie, button)
-    }else {
-        console.log("No more tickets sorry")
-    }
+   
+    buyATicket(movie, button, ticketsLeft, movieObj)
+    
 
     const movieObj = {
         "title": title.innerText,
@@ -48,13 +46,17 @@ const renderMovie = (movie) => {
         "description": movie.description,
         "poster": poster.src
     }
-    // console.log(movieObj)
+    console.log(movieObj)
 }
 
-    const buyATicket = (movie, button, movieObj) => {
+    const buyATicket = (movie, button, movieObj, ticketsLeft) => {
         button.addEventListener('click', () => {
+            if(ticketsLeft >= 1){
             movie.tickets_sold = movie.tickets_sold + 1;
             updateInfo(movie, movieObj)
+            } else {
+                console.log("no more tick")
+            }
         })
     }
 
