@@ -27,26 +27,28 @@ fetchMovie();
 
 function renderMovie(movie){ 
     
-
+    
     posterDiv().src = movie.poster
     divTitle.innerText = movie.title;   
     divRunTime.innerText = movie.runtime;
     filmInfo.innerText = movie.description;
     showtime.innerText = movie.showtime;
-    console.log(ticketing)
-    if (ticketNum.value > 0) {
-        buyButton.style.display = "none";
-    } else {
+    ticketNum.innerText = movie.capacity;
+   
+    
+    if (movie.capacity <= 0) {
         
-        ticketNum.innerText = movie.tickets_sold;
-    }
+        buyButton.style.display = "none";
+    } 
+
 }
-buyButton.addEventListener('click', (e) => {
+buyButton.addEventListener('click', (e) => { 
     
     const ticketNum = document.getElementById("ticket-num")
-    let ticketvalue =  ticketNum.innerText -= 1
+    // let ticketvalue =  ticketNum.innerText -= 1
     
    
+ 
 
     const options = {
             method: "PATCH",
@@ -54,12 +56,12 @@ buyButton.addEventListener('click', (e) => {
                 "content-type": "application/json",
                 "accept": "application/json",
             },
-             body: JSON.stringify({tickets_sold: ticketvalue })
+             body: JSON.stringify({capacity:  ticketNum.innerText -= 1})
     }
 
     fetch(url1 , options)
         .then(resp => resp.json())
-        .then(fetchMovie() )  
+        .then(json => renderMovie(json))  
  
     
 })
